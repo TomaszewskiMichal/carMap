@@ -43,6 +43,6 @@ export const containerStyle: { width: string; height: string } = {
   height: `${(window.innerHeight * 0.9).toFixed()}px`,
 };
 export const center: { lat: number; lng: number } = {
-  lat: 51.107883,
-  lng: 17.038538,
+  lat: 52.237049,
+  lng: 21.017532,
 };
