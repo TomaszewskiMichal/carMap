@@ -1,18 +1,11 @@
 import { createContext, useContext } from 'react';
 import { useJsApiLoader } from '@react-google-maps/api';
-/**
- * @description Type annotations for Google map context
- */
-type GoogleMapsProviderProps = { children: JSX.Element };
-type contextInitialState = {
-  isGoogleMapsLoaded: boolean;
-  loadError: boolean;
-};
 
-const initialState: contextInitialState = {
-  isGoogleMapsLoaded: false,
-  loadError: false,
-};
+import {
+  GoogleMapsProviderProps,
+  initialState,
+  contextInitialState,
+} from './googleMapsProvider.interface';
 
 export const GoogleMapsContext: React.Context<contextInitialState> =
   createContext(initialState);
@@ -34,15 +27,3 @@ export const GoogleMapsProvider = ({
 };
 
 export const useGoogleMaps = () => useContext(GoogleMapsContext);
-
-/**
- * @description Options for rendering Google Map
- */
-export const containerStyle: { width: string; height: string } = {
-  width: `${window.innerWidth - 20}px`,
-  height: `${(window.innerHeight * 0.9).toFixed()}px`,
-};
-export const center: { lat: number; lng: number } = {
-  lat: 52.237049,
-  lng: 21.017532,
-};

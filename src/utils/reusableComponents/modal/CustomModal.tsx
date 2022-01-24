@@ -5,13 +5,7 @@ import DialogActions from '@mui/material/DialogActions';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 
-interface CustomModalProps {
-  open: boolean;
-  onClose?: () => void;
-  title: string;
-  body: JSX.Element;
-  footerActions: JSX.Element;
-}
+import { CustomModalProps } from './customModalInterface';
 
 export const CustomModal = ({
   open,
@@ -21,8 +15,8 @@ export const CustomModal = ({
   footerActions,
 }: CustomModalProps): JSX.Element => {
   return (
-    <Dialog open={open} aria-label={`${title}`}>
-      <DialogTitle className="flex bg-yellow">
+    <Dialog open={open} aria-label={`${title}`} onClose={onClose}>
+      <DialogTitle className="flex bg-secondary">
         {title}
         {onClose && (
           <IconButton
@@ -34,8 +28,10 @@ export const CustomModal = ({
           </IconButton>
         )}
       </DialogTitle>
-      <DialogContent className="bg-yellow">{body}</DialogContent>
-      <DialogActions className="bg-yellow">{footerActions}</DialogActions>
+      <DialogContent dividers className="bg-secondary">
+        {body}
+      </DialogContent>
+      <DialogActions className="bg-secondary">{footerActions}</DialogActions>
     </Dialog>
   );
 };
