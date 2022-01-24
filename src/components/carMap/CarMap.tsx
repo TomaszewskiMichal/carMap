@@ -61,7 +61,7 @@ export const CarMap = (): JSX.Element => {
           >
             <div>
               <div className="flex items-center">
-                <Typography variant="h5">
+                <Typography variant="h6">
                   {`${state.markerClicked.status.charAt(
                     0
                   )}${state.markerClicked.status.slice(1).toLowerCase()}: `}
@@ -79,7 +79,7 @@ export const CarMap = (): JSX.Element => {
                 Plates Number: {state.markerClicked.platesNumber}
               </Typography>
               <Typography variant="h6">
-                Battery: {state.markerClicked.batteryLevelPct}
+                Battery: {`${state.markerClicked.batteryLevelPct} %`}
               </Typography>
             </div>
           </InfoWindow>
