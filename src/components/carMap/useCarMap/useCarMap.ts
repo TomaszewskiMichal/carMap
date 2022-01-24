@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-import { MapState, switchCarMapState } from './carMap.interface';
+import { MapState, switchCarMapState } from '../carMap.interface';
 
 export const useCarMap = () => {
   const [state, setState] = useState<MapState>({

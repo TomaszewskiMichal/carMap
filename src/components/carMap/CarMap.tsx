@@ -7,7 +7,7 @@ import Brightness1Icon from '@mui/icons-material/Brightness1';
 /**
  *@description Custom Imports
  */
-import { FilterModal } from './FilterModal';
+import { FilterModal } from './filterModal/FilterModal';
 import { Loader } from '../../utils/reusableComponents/loaderComponent';
 import { ErrorText } from '../../utils/reusableComponents/errorComponent';
 import {
@@ -17,7 +17,7 @@ import {
 } from '../../utils/googleMapsProvider';
 import icon from '../../utils/icon.png';
 import icon2 from '../../utils/icon2.png';
-import { useCarMap } from './useCarMap';
+import { useCarMap } from './useCarMap/useCarMap';
 
 export const CarMap = (): JSX.Element => {
   const { state, handleSwichState } = useCarMap();

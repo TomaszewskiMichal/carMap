@@ -6,14 +6,13 @@ import Button from '@mui/material/Button';
 /**
  *@description Custom Imports
  */
-import { CustomModal } from '../../utils/reusableComponents/modal/CustomModal';
+import { CustomModal } from '../../../utils/reusableComponents/modal/CustomModal';
 import {
   VehicleToMarkerInterface,
-  switchCarMapState,
   FilterModalProps,
   FilterModalState,
-} from './carMap.interface';
-import { Loader } from '../../utils/reusableComponents/loaderComponent/Loader';
+} from '../carMap.interface';
+import { Loader } from '../../../utils/reusableComponents/loaderComponent/Loader';
 
 export const FilterModal = (props: FilterModalProps): JSX.Element => {
   const [state, setState] = useState<FilterModalState>({
@@ -36,35 +35,37 @@ export const FilterModal = (props: FilterModalProps): JSX.Element => {
   };
 
   useEffect(() => {
-    if (state.availableCarFilter) {
-      props.handleSwichState(
-        'dataToMap',
-        props.dataToMap.filter((vehicle) => vehicle.status === 'AVAILABLE')
-      );
-    }
+    let filteredData: VehicleToMarkerInterface[] = [];
 
-    if (state.carWithBatteryOver90Filter) {
-      props.handleSwichState(
-        'dataToMap',
-        props.dataToMap.filter((vehicle) => vehicle.batteryLevelPct > 90)
-      );
-    }
+    if (state.empty) filteredData = props.dataToFilter;
+    if (state.availableCarFilter)
+      filteredData = filteredData.length
+        ? filteredData.filter((vehicle) => vehicle.status === 'AVAILABLE')
+        : props.dataToMap.filter((vehicle) => vehicle.status === 'AVAILABLE');
 
-    if (state.carWithFullBattery) {
-      props.handleSwichState(
-        'dataToMap',
-        props.dataToMap.filter((vehicle) => vehicle.batteryLevelPct === 100)
-      );
-    }
+    if (state.carWithBatteryOver90Filter)
+      filteredData = filteredData.length
+        ? filteredData.filter((vehicle) => vehicle.batteryLevelPct > 90)
+        : props.dataToMap.filter((vehicle) => vehicle.batteryLevelPct > 90);
+
+    if (state.carWithFullBattery)
+      filteredData = filteredData.length
+        ? filteredData.filter((vehicle) => vehicle.batteryLevelPct === 100)
+        : props.dataToMap.filter((vehicle) => vehicle.batteryLevelPct === 100);
+
     if (
       !state.availableCarFilter &&
       !state.carWithBatteryOver90Filter &&
       !state.carWithFullBattery
-    ) {
-      props.handleSwichState('dataToMap', props.dataToFilter);
-    }
+    )
+      filteredData = props.dataToFilter;
 
-    setState((prev) => ({ ...prev, loading: false }));
+    props.handleSwichState('dataToMap', filteredData);
+    setState((prev) => ({
+      ...prev,
+      loading: false,
+      empty: filteredData.length ? false : true,
+    }));
   }, [
     state.availableCarFilter,
     state.carWithBatteryOver90Filter,
